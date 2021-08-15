@@ -189,9 +189,10 @@ void static_execute(Graph& graph, std::vector<intT>& sources) {
 #pragma omp parallel
     {
         auto local_start = std::chrono::high_resolution_clock::now();
+        auto tid = omp_get_thread_num();
         intT* seq = nullptr;
         sfmt_t sfmt;
-        sfmt_init_gen_rand(&sfmt, 0);
+        sfmt_init_gen_rand(&sfmt, tid);
         const InputParameter para = g_input_parameter;
 
         if (para.length > 0) {
@@ -289,9 +290,10 @@ void dynamic_execute(Graph& graph, std::vector<intT>& sources) {
         intT *seq = nullptr;
         double *weight = new double[graph.max_degree()];
         AliasSlot *alias_table = new AliasSlot[graph.max_degree()];
+        int tid = omp_get_thread_num();
 
         sfmt_t sfmt;
-        sfmt_init_gen_rand(&sfmt, 0);
+        sfmt_init_gen_rand(&sfmt, tid);
         InputParameter para = g_input_parameter;
 
         if (g_input_parameter.schema != nullptr) {
@@ -304,7 +306,7 @@ void dynamic_execute(Graph& graph, std::vector<intT>& sources) {
         if (para.length > 0) {
             seq = new intT[para.length];
         }
-        int tid = omp_get_thread_num();
+
 
         uint64_t local_step = 0;
         uint64_t local_walks = 0;

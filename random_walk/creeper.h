@@ -354,7 +354,7 @@ template<class F> void *uniform_compute(void *ptr) {
 #endif
 #endif
     assert(RING_SIZE < num_walkers);
-    sfmt_init_gen_rand(&sfmt, 0);
+    sfmt_init_gen_rand(&sfmt, p->id_);
 
     for (int i = 0; i < RING_SIZE; ++i) {
         r[i].empty_ = false;
@@ -446,7 +446,7 @@ template<class F> void *static_compute(void *ptr) {
 #endif
 
      assert(RING_SIZE <= num_walkers);
-     sfmt_init_gen_rand(&sfmt, 0);
+     sfmt_init_gen_rand(&sfmt, p->id_);
 
      for (int i = 0; i < RING_SIZE; ++i) {
          r[i].empty_ = false;
@@ -567,7 +567,7 @@ template<class F> void *dynamic_compute(void *ptr) {
 #endif
 
     assert(RING_SIZE < num_walkers);
-    sfmt_init_gen_rand(&sfmt, 0);
+    sfmt_init_gen_rand(&sfmt, p->id_);
 
     for (int i = 0; i < RING_SIZE; ++i) {
         r[i].empty_ = false;
